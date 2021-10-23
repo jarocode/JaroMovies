@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import Home from '../components/pageComponents/home';
 
-const Home = () => {
+const HomePage = () => {
     return (
         <Container>
             <Inner>
-
+                <Home/>
             </Inner>
         </Container>
     )
 }
 
-export default Home;
+export default HomePage;
 
 const Container = styled.div`
     display: flex;
@@ -23,5 +24,5 @@ const Container = styled.div`
 const Inner = styled.div`
     width: 85rem;
     height: 20rem;
-    background: #fff;
+    /* background: #fff; */
 `
