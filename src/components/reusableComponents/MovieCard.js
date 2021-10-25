@@ -10,28 +10,23 @@ import { WatchLaterContext } from '../../context/WatchLaterContext';
 import {FaRegClock} from 'react-icons/fa';
 
 
-const MovieCard = ({id, poster, title, date, movieData}) => {
-    const [open, setOpen] = React.useState(false);
+const MovieCard = ({id, poster, title, date, movieData, setOpen}) => {
     const {setDetails} = useContext(DetailsContext);
     const {setFavourites} = useContext(FavouriteContext);
     const {setWatchLater} = useContext(WatchLaterContext);
     const movieItem = movieData.find(movie => movie.id === id);
+    
     const handleClick = (id) => {
         setDetails(movieItem);
     }
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
     
-        setOpen(false);
-      };
     const addToFavourite = () => {
         setFavourites(prev => [...prev, movieItem]);
         setOpen(true);
     }
     const watchLater = () => {
         setWatchLater(prev => [...prev, movieItem]);
+        setOpen(true);
     }
     return (
         <>
@@ -74,12 +69,7 @@ const MovieCard = ({id, poster, title, date, movieData}) => {
                 <Btn BtnBg={colors.primary} BtnColor={colors.white} onClick={() => handleClick(id)}>View Details</Btn>
             </Content>
         </Container>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          Movie added successfully!
-        </Alert>
-      </Snackbar>
-        </>
+    </>
 
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import {Box, Tabs, Tab} from '@mui/material';
+import {Box, Tabs, Tab, Snackbar, Alert} from '@mui/material';
 import { styled as  muiStyled } from '@mui/material/styles';
 import {Element} from 'react-scroll';
 
@@ -21,9 +21,16 @@ function a11yProps(index) {
 
 const MovieSelection = () => {
     const [value, setValue] = React.useState(0);
+    const [open, setOpen] = React.useState(false);
     const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+      setValue(newValue);
+    };
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false);
+    };
     return (
         <Element name="movieSelection">
             <Container>
@@ -34,9 +41,14 @@ const MovieSelection = () => {
                       <MovieTab label="Favourites" {...a11yProps(2)}/>
                   </MovieTabs>
               </Box>
-              <AllMovies value={value}/>
+              <AllMovies value={value} setOpen={setOpen}/>
               <Favourites value={value}/>
               <WatchLater value={value}/>
+              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                Movie added successfully!
+                </Alert>
+              </Snackbar>
           </Container>
         </Element>
     )
@@ -50,6 +62,7 @@ const Container = styled.div`
     width: 85%;
     /* background: purple; */
     min-height: 20rem;
+    padding-bottom: 5rem;
 `
 
 const MovieTabs = muiStyled((props) => (

@@ -13,8 +13,13 @@ const Favourites = ({value}) => {
     return (
        <TabPanel value={value} index={2}>
            <Container>
-                {isFavouriteData? favorites.map(data =><MovieListCard movieData={data} />) :
-                 <NoMovieFound text="No favourites added yet"/>
+                {isFavouriteData? favorites.map(data =>
+                    <MovieListCard
+                        key={data.id} 
+                        movieData={data}
+                        deleteData={setFavourites} 
+                    />) :
+                    <NoMovieFound text="No favourites added yet"/>
                 }
            </Container>
        </TabPanel>

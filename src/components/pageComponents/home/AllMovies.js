@@ -7,16 +7,19 @@ import TabPanel from './TabPanel';
 import MovieCardRow from '../../reusableComponents/MovieCardRow';
 import { chunkArrayInGroups } from '../../../utils/helpers';
 import { MovieContext } from '../../../context/MovieContext';
+import NoMovieFound from '../../reusableComponents/NoMovieFound';
 
-const AllMovies = ({value}) => {
-    const {movieList, setMovieList} = useContext(MovieContext);
+const AllMovies = ({value, setOpen}) => {
+    const {movieList} = useContext(MovieContext);
     const movies = chunkArrayInGroups(movieList, 4);
       return (
        <TabPanel value={value} index={0}>
            <Container>
-             <Carousel axis="horizontal" showArrows>
-                { movies.map(movie => <MovieCardRow movieData={movie}/>)}
-             </Carousel>
+             {Array.isArray(movies) && movies.length !== 0 ?(<Carousel axis="horizontal" showArrows>
+                                    { movies.map(movie => <MovieCardRow movieData={movie} setOpen={setOpen}/>)}
+                                    </Carousel>) :
+                                    <NoMovieFound text="No results found"/>
+            }
             </Container>
        </TabPanel>
     )

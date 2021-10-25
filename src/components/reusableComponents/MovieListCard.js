@@ -7,8 +7,12 @@ import { colors } from '../../config.js/theme';
 import url from '../../config.js/url';
 
 
-const MovieListCard = ({movieData}) => {
-    const {title, backdrop_path, overview} = movieData;
+const MovieListCard = ({movieData, deleteData}) => {
+    const {id, title, backdrop_path, overview} = movieData;
+    const handleDelete = () => {
+        deleteData(prev => prev.filter(data => data.id !== id));
+    }
+    
     return (
         <Container>
             <ImgDiv bg={url["IMAGE_BASE_URL"]+backdrop_path}></ImgDiv>
@@ -25,7 +29,15 @@ const MovieListCard = ({movieData}) => {
                      >
                         {overview}
                 </Typography>
-                <Btn variant="contained" BtnBg={colors.primary} BtnColor={colors.white}startIcon={<ImBin/>}>Remove</Btn>
+                <Btn 
+                    variant="contained" 
+                    BtnBg={colors.primary} 
+                    BtnColor={colors.white}
+                    onClick={handleDelete}
+                    startIcon={<ImBin/>}
+                >
+                        Remove
+                    </Btn>
             </Content>
         </Container>
     )

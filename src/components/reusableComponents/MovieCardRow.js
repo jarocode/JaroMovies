@@ -8,7 +8,7 @@ import movie2 from '../../assets/images/freedom.jpg'
 import movie3 from '../../assets/images/Beauty-Beast.jpg'
 import movie4 from '../../assets/images/captain-marvel.jpg'
 
-const MovieCardRow = ({movieData}) => {
+const MovieCardRow = ({movieData, setOpen}) => {
     
     return (
         <Container>
@@ -19,7 +19,8 @@ const MovieCardRow = ({movieData}) => {
                                     id={id}
                                     movieData={movieData}
                                     poster={url["IMAGE_BASE_URL"]+poster_path} 
-                                    title={title} 
+                                    title={title}
+                                    setOpen={setOpen}
                                     date={release_date} 
                             />);
                         })}

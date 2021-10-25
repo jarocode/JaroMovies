@@ -13,9 +13,14 @@ const WatchLater = ({value}) => {
     return (
        <TabPanel value={value} index={1}>
            <Container>
-            {isWatchLaterData? watchLater.map(data =><MovieListCard movieData={data} />) :
-                    <NoMovieFound text="No movies added yet"/>
-                }
+            {isWatchLaterData? watchLater.map(data =>
+                <MovieListCard
+                    key={data.id}
+                    movieData={data} 
+                    deleteData={setWatchLater}
+                />) :
+                <NoMovieFound text="No movies added yet"/>
+            }
            </Container>
        </TabPanel>
     )

@@ -1,20 +1,41 @@
-import React from 'react';
+import React,{useState, useContext} from 'react';
 import styled from '@emotion/styled';
 import { Button, Badge } from '@mui/material';
 import {MdSearch} from 'react-icons/md';
 import {BsPlayCircle} from 'react-icons/bs';
 
 import {colors} from '../../../config.js/theme';
+import { MovieContext } from '../../../context/MovieContext';
+import searchMovie from '../../../apis/searchMovie';
 
 const Header = () => {
+    const [searchQuery, setSearchQuery] = useState();
+    const {movieList, setMovieList}= useContext(MovieContext);
+    const handleSearch = async() => {
+        const searchResult = await searchMovie(searchQuery);
+        setMovieList(searchResult.results);
+        setSearchQuery('');
+
+    }
+    const handleChange = e => {
+        setSearchQuery(e.target.value);
+    }
     return (
         <Container>
             <LogoDiv>
                 <P>Jar<BsPlayCircle/><span style={{color: '#f00'}}>Movies</span></P>
             </LogoDiv>
             <SearchDiv>
-                <Input placeholder="Search movies..."/>
-                <SearchBtn variant="contained" startIcon={<MdSearch size="1.5rem"/>}></SearchBtn>
+                <Input 
+                    placeholder="Search movies..."
+                    onChange={handleChange}
+                    onKeyDown={e => e.keyCode === 13 && handleSearch()}
+                    value={searchQuery}
+                />
+                <SearchBtn 
+                    variant="contained"
+                    onClick={handleSearch}
+                    startIcon={<MdSearch size="1.5rem"/>}></SearchBtn>
             </SearchDiv>
             <AuthDiv>
                 <AuthBtn variant="contained">Sign In</AuthBtn>

@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import styled from '@emotion/styled';
-import { Typography, Button} from '@mui/material';
+import { Typography, Button, Snackbar, Alert} from '@mui/material';
 import {FaClock} from 'react-icons/fa';
 import {MdOutlineAddCircle} from 'react-icons/md';
 import {Link} from 'react-scroll'
@@ -8,13 +8,37 @@ import {Link} from 'react-scroll'
 import moviePoster from '../../../assets/images/Thor.jpg';
 import { colors } from '../../../config.js/theme';
 import { DetailsContext } from '../../../context/DetailsContext';
+import { FavouriteContext } from '../../../context/FavouriteContext';
+import { WatchLaterContext } from '../../../context/WatchLaterContext';
 import url from '../../../config.js/url';
 
 const MovieJumbotron = () => {
-    const {details, setDetails} = useContext(DetailsContext);
+    const [open, setOpen] = React.useState(false);
+    const {details} = useContext(DetailsContext);
+    const {setFavourites} = useContext(FavouriteContext);
+    const {setWatchLater} = useContext(WatchLaterContext);
+
     const description=" Not your regular movie website...Don't miss out on latest, hottest and trending movies, Stay up to date with the latest episodes of your favoutite tv series and more!"
     const title= "Enjoy Movies of All Genres"
-   return (
+
+    
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+    const addToFavourite = () => {
+        setFavourites(prev => [...prev, details]);
+        setOpen(true);
+    }
+    const watchLater = () => {
+        setWatchLater(prev => [...prev, details]);
+        setOpen(true);
+    }
+   
+    return (
         <Container bg={details ? url["IMAGE_BASE_URL"]+details?.backdrop_path : moviePoster}>
             <InfoDiv>
                 <Typography variant="h3" component="h2" color={colors.white} fontWeight="bold" marginBottom="1.5rem">
@@ -36,6 +60,7 @@ const MovieJumbotron = () => {
                             variant="contained" 
                             BtnBg={colors.primary} 
                             BtnColor={colors.white}
+                            onClick={watchLater}
                             startIcon={<FaClock />}>
                                 Watch later
                         </Btn>
@@ -44,6 +69,7 @@ const MovieJumbotron = () => {
                             BtnBg={colors.grey} 
                             BtnColor={colors.white}
                             border={colors.white}
+                            onClick={addToFavourite}
                             startIcon={<MdOutlineAddCircle color={colors.white}/>}>
                                 Add to Favourites
                         </Btn>
@@ -66,7 +92,12 @@ const MovieJumbotron = () => {
                 </BtnDiv>
 
             </InfoDiv>
-        </Container>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                Movie added successfully!
+            </Alert>
+      </Snackbar>
+            </Container>
     )
 }
 
