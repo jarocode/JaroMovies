@@ -3,11 +3,15 @@ import styled from '@emotion/styled';
 import {Typography} from '@mui/material';
 
 import TabPanel from './TabPanel';
+import MovieListCard from '../../reusableComponents/MovieListCard';
 
 const WatchLater = ({value}) => {
+    const movies = [1, 2, 3, 4, 5];
     return (
-       <TabPanel value={value} index={2}>
-           <Container></Container>
+       <TabPanel value={value} index={1}>
+           <Container>
+                {movies.map(el =><MovieListCard/>)}
+           </Container>
        </TabPanel>
     )
 }
@@ -17,7 +21,7 @@ export default WatchLater;
 const Container = styled.div`
     width: 100%;
     min-height: 10rem;
-    background: green;
+    background: none;
 `;
 
 

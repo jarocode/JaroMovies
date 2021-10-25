@@ -16,10 +16,12 @@ const MovieCardRow = ({movieData}) => {
                             const {id, poster_path, release_date, title} = movie;
                             return(<MovieCard
                                     key={id}
+                                    id={id}
+                                    movieData={movieData}
                                     poster={url["IMAGE_BASE_URL"]+poster_path} 
                                     title={title} 
                                     date={release_date} 
-                                    />);
+                            />);
                         })}
         </Container>
     )

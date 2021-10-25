@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Button, Badge } from '@mui/material';
 import {MdSearch} from 'react-icons/md';
-import {BsFillBellFill} from 'react-icons/bs';
+import {BsPlayCircle} from 'react-icons/bs';
 
 import {colors} from '../../../config.js/theme';
 
@@ -10,7 +10,7 @@ const Header = () => {
     return (
         <Container>
             <LogoDiv>
-                <P>Jaro<span style={{color: '#f00'}}>Movies</span></P>
+                <P>Jar<BsPlayCircle/><span style={{color: '#f00'}}>Movies</span></P>
             </LogoDiv>
             <SearchDiv>
                 <Input placeholder="Search movies..."/>

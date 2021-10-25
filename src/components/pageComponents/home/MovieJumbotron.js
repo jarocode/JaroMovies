@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from '@emotion/styled';
 import { Typography, Button} from '@mui/material';
-
-import moviePoster from '../../../assets/images/Thor.jpg';
-import { colors } from '../../../config.js/theme';
 import {FaClock} from 'react-icons/fa';
 import {MdOutlineAddCircle} from 'react-icons/md';
 
+import moviePoster from '../../../assets/images/Thor.jpg';
+import { colors } from '../../../config.js/theme';
+import { DetailsContext } from '../../../context/DetailsContext';
+import url from '../../../config.js/url';
+
 const MovieJumbotron = () => {
-    return (
-        <Container bg={moviePoster}>
+    const {details, setDetails} = useContext(DetailsContext);
+    const description=" Not your regular movie website...Don't miss out on latest, hottest and trending movies, Stay up to date with the latest episodes of your favoutite tv series and more!"
+    const title= "Enjoy Movies of All Genres"
+   return (
+        <Container bg={details ? url["IMAGE_BASE_URL"]+details?.backdrop_path : moviePoster}>
             <InfoDiv>
                 <Typography variant="h3" component="h2" color={colors.white} fontWeight="bold" marginBottom="1.5rem">
-                    THOR RAGNAROK
+                    {details ? details?.title : title}
                 </Typography>
                 <Typography 
                     variant="subtitle2" 
@@ -21,21 +26,34 @@ const MovieJumbotron = () => {
                     marginBottom="1.5rem"
                     fontSize="1.1em"
                      >
-                        Id laboris irure velit magna do dolor exercitation est eu mollit qui laborum. 
-                        Dolor ipsum do duis do commodo ea. Fugiat labore ut ut aliqua ipsum.
-                        Id laboris irure velit magna do dolor exercitation est eu mollit qui laborum. 
-                        Dolor ipsum do duis do commodo ea. Fugiat labore ut ut aliqua ipsum.
+                        {details ? details?.overview :description}
                 </Typography>
                 <BtnDiv>
-                    <Btn variant="contained" BtnBg={colors.primary} BtnColor={colors.white}startIcon={<FaClock />}>Watch later</Btn>
-                    <Btn 
-                        variant="outlined"  
-                        BtnBg={colors.grey} 
-                        BtnColor={colors.white}
-                        border={colors.white}
-                        startIcon={<MdOutlineAddCircle color={colors.white}/>}>
-                            Add to Favourites
+                    {details ? 
+                    <>
+                        <Btn 
+                            variant="contained" 
+                            BtnBg={colors.primary} 
+                            BtnColor={colors.white}
+                            startIcon={<FaClock />}>
+                                Watch later
                         </Btn>
+                        <Btn 
+                            variant="outlined"  
+                            BtnBg={colors.grey} 
+                            BtnColor={colors.white}
+                            border={colors.white}
+                            startIcon={<MdOutlineAddCircle color={colors.white}/>}>
+                                Add to Favourites
+                        </Btn>
+                    </> : <Btn 
+                            variant="contained" 
+                            BtnBg={colors.primary} 
+                            BtnColor={colors.white}
+                            >
+                                Get Started
+                            </Btn>
+                        }
                 </BtnDiv>
 
             </InfoDiv>
@@ -61,7 +79,7 @@ const Container = styled.div`
         width: 100%;
         content: '';
         background: ${colors.dark};
-        opacity: 0.5;
+        opacity: 0.6;
         position: absolute;
         z-index: 2;
     }

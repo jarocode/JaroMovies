@@ -6,9 +6,9 @@ import TabPanel from './TabPanel';
 import MovieListCard from '../../reusableComponents/MovieListCard';
 
 const Favourites = ({value}) => {
-    const movies = [1, 2, 3, 4, 5]
+    const movies = [1, 2, 3, 4, 5];
     return (
-       <TabPanel value={value} index={1}>
+       <TabPanel value={value} index={2}>
            <Container>
                 {movies.map(el =><MovieListCard/>)}
            </Container>
@@ -21,7 +21,7 @@ export default Favourites;
 const Container = styled.div`
     width: 100%;
     min-height: 10rem;
-    background: yellow;
+    background: none;
 `;
 
 
