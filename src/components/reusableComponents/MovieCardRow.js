@@ -2,12 +2,25 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import MovieCard from './MovieCard';
+import url from '../../config.js/url';
+import movie1 from '../../assets/images/Project.jpg'
+import movie2 from '../../assets/images/freedom.jpg'
+import movie3 from '../../assets/images/Beauty-Beast.jpg'
+import movie4 from '../../assets/images/captain-marvel.jpg'
 
-const MovieCardRow = () => {
-    const cards = [1,2,3,4]
+const MovieCardRow = ({movieData}) => {
+    
     return (
         <Container>
-            {cards.map(el => <MovieCard/>)}
+            {movieData.map(movie => {
+                            const {id, poster_path, release_date, title} = movie;
+                            return(<MovieCard
+                                    key={id}
+                                    poster={url["IMAGE_BASE_URL"]+poster_path} 
+                                    title={title} 
+                                    date={release_date} 
+                                    />);
+                        })}
         </Container>
     )
 }

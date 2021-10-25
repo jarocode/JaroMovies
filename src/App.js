@@ -1,8 +1,11 @@
 import Home from './pages/Home';
+import {MovieProvider} from './context/MovieContext';
 
 function App() {
   return (
-    <Home/>
+      <MovieProvider>
+        <Home/>
+      </MovieProvider>
   );
 }
 

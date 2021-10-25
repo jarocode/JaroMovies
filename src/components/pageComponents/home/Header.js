@@ -4,6 +4,8 @@ import { Button, Badge } from '@mui/material';
 import {MdSearch} from 'react-icons/md';
 import {BsFillBellFill} from 'react-icons/bs';
 
+import {colors} from '../../../config.js/theme';
+
 const Header = () => {
     return (
         <Container>
@@ -11,7 +13,7 @@ const Header = () => {
                 <P>Jaro<span style={{color: '#f00'}}>Movies</span></P>
             </LogoDiv>
             <SearchDiv>
-                <Input/>
+                <Input placeholder="Search movies..."/>
                 <SearchBtn variant="contained" startIcon={<MdSearch size="1.5rem"/>}></SearchBtn>
             </SearchDiv>
             <AuthDiv>
@@ -58,10 +60,16 @@ const Input = styled.input`
     border: 2px solid #fff;
     border-right: none;
     background: none;
+    padding-left: 1rem;
     border-radius: 7px;
     outline: none;
+    font-size: 1.1em;
+    color: ${colors.white};
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
+    &::placeholder{
+        color: ${colors.white};
+    }
 `;
 
 const SearchBtn = styled(Button)`
