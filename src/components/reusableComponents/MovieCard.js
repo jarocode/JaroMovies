@@ -1,29 +1,66 @@
 import React, {useContext} from 'react';
 import styled from '@emotion/styled/macro';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Tooltip, Zoom, Snackbar, Alert} from '@mui/material';
 import {MdAddCircleOutline} from 'react-icons/md';
 
 import {colors} from '../../config.js/theme';
 import { DetailsContext } from '../../context/DetailsContext';
+import { FavouriteContext } from '../../context/FavouriteContext';
+import { WatchLaterContext } from '../../context/WatchLaterContext';
 import {FaRegClock} from 'react-icons/fa';
 
 
 const MovieCard = ({id, poster, title, date, movieData}) => {
+    const [open, setOpen] = React.useState(false);
     const {setDetails} = useContext(DetailsContext);
+    const {setFavourites} = useContext(FavouriteContext);
+    const {setWatchLater} = useContext(WatchLaterContext);
+    const movieItem = movieData.find(movie => movie.id === id);
     const handleClick = (id) => {
-        setDetails(movieData.find(movie => movie.id === id));
+        setDetails(movieItem);
+    }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+    const addToFavourite = () => {
+        setFavourites(prev => [...prev, movieItem]);
+        setOpen(true);
+    }
+    const watchLater = () => {
+        setWatchLater(prev => [...prev, movieItem]);
     }
     return (
+        <>
         <Container>
             <ImgDiv bg={poster}>
                 <HoverDiv>
                     <HoverContent>
-                        <Add>
+                    <Tooltip 
+                        TransitionComponent={Zoom} 
+                        title="Watch later" 
+                        placement="right" 
+                        disableFocusListener 
+                        disableTouchListener
+                    >
+                        <Add onClick={watchLater}>
                             <FaRegClock size="60%"/>
                         </Add>
-                        <Add>
+                    </Tooltip>
+                    <Tooltip 
+                        TransitionComponent={Zoom} 
+                        title="Add to favourites" 
+                        placement="right" 
+                        disableFocusListener 
+                        disableTouchListener
+                    >
+                        <Add onClick={addToFavourite}>
                             <MdAddCircleOutline size="60%"/>
                         </Add>
+                    </Tooltip>
                     </HoverContent>
                 </HoverDiv>
             </ImgDiv>
@@ -37,6 +74,13 @@ const MovieCard = ({id, poster, title, date, movieData}) => {
                 <Btn BtnBg={colors.primary} BtnColor={colors.white} onClick={() => handleClick(id)}>View Details</Btn>
             </Content>
         </Container>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Movie added successfully!
+        </Alert>
+      </Snackbar>
+        </>
+
     )
 }
 

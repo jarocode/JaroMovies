@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from '@emotion/styled';
 import {Typography} from '@mui/material';
 
 import TabPanel from './TabPanel';
+import { FavouriteContext } from '../../../context/FavouriteContext';
 import MovieListCard from '../../reusableComponents/MovieListCard';
+import NoMovieFound from '../../reusableComponents/NoMovieFound';
 
 const Favourites = ({value}) => {
-    const movies = [1, 2, 3, 4, 5];
+    const {favorites, setFavourites} = useContext(FavouriteContext);
+    const isFavouriteData = favorites.length !== 0;
     return (
        <TabPanel value={value} index={2}>
            <Container>
-                {movies.map(el =><MovieListCard/>)}
+                {isFavouriteData? favorites.map(data =><MovieListCard movieData={data} />) :
+                 <NoMovieFound text="No favourites added yet"/>
+                }
            </Container>
        </TabPanel>
     )

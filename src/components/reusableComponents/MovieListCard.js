@@ -4,14 +4,17 @@ import { Typography, Button } from '@mui/material';
 import {ImBin} from 'react-icons/im'
 
 import { colors } from '../../config.js/theme';
+import url from '../../config.js/url';
 
-const MovieListCard = () => {
+
+const MovieListCard = ({movieData}) => {
+    const {title, backdrop_path, overview} = movieData;
     return (
         <Container>
-            <ImgDiv></ImgDiv>
+            <ImgDiv bg={url["IMAGE_BASE_URL"]+backdrop_path}></ImgDiv>
             <Content>
                 <Typography variant="h3" component="h2" color={colors.white} fontSize="1.5em" fontWeight="bold" marginBottom="1.3rem">
-                    THOR RAGNAROK
+                    {title}
                 </Typography>
                 <Typography 
                     variant="subtitle2" 
@@ -20,10 +23,7 @@ const MovieListCard = () => {
                     marginBottom="1.5rem"
                     fontSize="1em"
                      >
-                        Id laboris irure velit magna do dolor exercitation est eu mollit qui laborum. 
-                        Dolor ipsum do duis do commodo ea. Fugiat labore ut ut aliqua ipsum.
-                        Id laboris irure velit magna do dolor exercitation est eu mollit qui laborum. 
-                        Dolor ipsum do duis do commodo ea. Fugiat labore ut ut aliqua ipsum.
+                        {overview}
                 </Typography>
                 <Btn variant="contained" BtnBg={colors.primary} BtnColor={colors.white}startIcon={<ImBin/>}>Remove</Btn>
             </Content>
@@ -42,7 +42,7 @@ const Container = styled.div`
 
 const ImgDiv = styled.div`
     width: 35%;
-    background: red;
+    background: url(${({bg}) => bg}) no-repeat center center/cover;
 `
 const Content = styled.div`
     width: 65%;

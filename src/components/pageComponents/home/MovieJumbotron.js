@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Typography, Button} from '@mui/material';
 import {FaClock} from 'react-icons/fa';
 import {MdOutlineAddCircle} from 'react-icons/md';
+import {Link} from 'react-scroll'
 
 import moviePoster from '../../../assets/images/Thor.jpg';
 import { colors } from '../../../config.js/theme';
@@ -46,13 +47,21 @@ const MovieJumbotron = () => {
                             startIcon={<MdOutlineAddCircle color={colors.white}/>}>
                                 Add to Favourites
                         </Btn>
-                    </> : <Btn 
-                            variant="contained" 
-                            BtnBg={colors.primary} 
-                            BtnColor={colors.white}
-                            >
-                                Get Started
-                            </Btn>
+                    </> : <Link
+                            to="movieSelection"
+                            spy={true}
+                            offset={{}}
+                            smooth={true}
+                            duration={500}
+                                >
+                                <Btn 
+                                    variant="contained" 
+                                    BtnBg={colors.primary} 
+                                    BtnColor={colors.white}
+                                >
+                                    Get Started
+                                </Btn>
+                            </Link>
                         }
                 </BtnDiv>
 

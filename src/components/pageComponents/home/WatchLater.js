@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import {Typography} from '@mui/material';
 
 import TabPanel from './TabPanel';
+import {WatchLaterContext} from '../../../context/WatchLaterContext';
 import MovieListCard from '../../reusableComponents/MovieListCard';
+import NoMovieFound from '../../reusableComponents/NoMovieFound';
 
 const WatchLater = ({value}) => {
-    const movies = [1, 2, 3, 4, 5];
+    const {watchLater, setWatchLater} = useContext(WatchLaterContext);
+    const isWatchLaterData = watchLater.length !== 0;
     return (
        <TabPanel value={value} index={1}>
            <Container>
-                {movies.map(el =><MovieListCard/>)}
+            {isWatchLaterData? watchLater.map(data =><MovieListCard movieData={data} />) :
+                    <NoMovieFound text="No movies added yet"/>
+                }
            </Container>
        </TabPanel>
     )

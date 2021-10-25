@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import {Box, Tabs, Tab} from '@mui/material';
 import { styled as  muiStyled } from '@mui/material/styles';
+import {Element} from 'react-scroll';
 
 import AllMovies from './AllMovies';
 import Favourites from './Favourites';
@@ -24,18 +25,20 @@ const MovieSelection = () => {
     setValue(newValue);
   };
     return (
-        <Container>
-            <Box sx={{ width: '100%', bgcolor: '#333' }}>
-                <MovieTabs value={value} onChange={handleChange} centered>
-                    <MovieTab label="All Movies" {...a11yProps(0)} color={"#fff"}/>
-                    <MovieTab label="Favourites" {...a11yProps(1)}/>
-                    <MovieTab label="Watch Later" {...a11yProps(2)}/>
-                </MovieTabs>
-            </Box>
-            <AllMovies value={value}/>
-            <Favourites value={value}/>
-            <WatchLater value={value}/>
-        </Container>
+        <Element name="movieSelection">
+            <Container>
+              <Box sx={{ width: '100%', bgcolor: '#333' }}>
+                  <MovieTabs value={value} onChange={handleChange} centered>
+                      <MovieTab label="All Movies" {...a11yProps(0)} color={"#fff"}/>
+                      <MovieTab label="WatchLater" {...a11yProps(1)}/>
+                      <MovieTab label="Favourites" {...a11yProps(2)}/>
+                  </MovieTabs>
+              </Box>
+              <AllMovies value={value}/>
+              <Favourites value={value}/>
+              <WatchLater value={value}/>
+          </Container>
+        </Element>
     )
 }
 
