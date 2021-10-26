@@ -6,6 +6,10 @@ import TabPanel from './TabPanel';
 import {WatchLaterContext} from '../../../context/WatchLaterContext';
 import MovieListCard from '../../reusableComponents/MovieListCard';
 import NoMovieFound from '../../reusableComponents/NoMovieFound';
+import device from '../../../config.js/mediaQueries';
+
+
+const {mobile} = device;
 
 const WatchLater = ({value}) => {
     const {watchLater, setWatchLater} = useContext(WatchLaterContext);

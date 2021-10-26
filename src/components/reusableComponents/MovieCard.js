@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import styled from '@emotion/styled/macro';
 import { Button, Typography, Tooltip, Zoom, Snackbar, Alert} from '@mui/material';
 import {MdAddCircleOutline} from 'react-icons/md';
+import { Link } from 'react-scroll';
 
 import {colors} from '../../config.js/theme';
 import { DetailsContext } from '../../context/DetailsContext';
@@ -66,7 +67,16 @@ const MovieCard = ({id, poster, title, date, movieData, setOpen}) => {
                 <Typography variant="subtitle1" component="h2" textAlign="left" color={colors.faintWhite}>
                     {date}
                 </Typography>
-                <Btn BtnBg={colors.primary} BtnColor={colors.white} onClick={() => handleClick(id)}>View Details</Btn>
+                <Link
+                    to="movieJumbotron"
+                    spy={true}
+                    offset={50}
+                    smooth={true}
+                    duration={600}
+                >
+                    <Btn BtnBg={colors.primary} BtnColor={colors.white} onClick={() => handleClick(id)}>View Details</Btn>
+                </Link>
+                
             </Content>
         </Container>
     </>

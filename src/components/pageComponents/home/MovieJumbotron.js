@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { Typography, Button, Snackbar, Alert} from '@mui/material';
 import {FaClock} from 'react-icons/fa';
 import {MdOutlineAddCircle} from 'react-icons/md';
-import {Link} from 'react-scroll'
+import {Link, Element} from 'react-scroll';
+import { useMediaQuery } from 'react-responsive';
 
 import moviePoster from '../../../assets/images/Thor.jpg';
 import { colors } from '../../../config.js/theme';
@@ -11,12 +12,17 @@ import { DetailsContext } from '../../../context/DetailsContext';
 import { FavouriteContext } from '../../../context/FavouriteContext';
 import { WatchLaterContext } from '../../../context/WatchLaterContext';
 import url from '../../../config.js/url';
+import device from '../../../config.js/mediaQueries';
+
+
+const {mobile} = device;
 
 const MovieJumbotron = () => {
     const [open, setOpen] = React.useState(false);
     const {details} = useContext(DetailsContext);
     const {setFavourites} = useContext(FavouriteContext);
     const {setWatchLater} = useContext(WatchLaterContext);
+    const isMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
     const description=" Not your regular movie website...Don't miss out on latest, hottest and trending movies, Stay up to date with the latest episodes of your favoutite tv series and more!"
     const title= "Enjoy Movies of All Genres"
@@ -39,9 +45,18 @@ const MovieJumbotron = () => {
     }
    
     return (
-        <Container bg={details ? url["IMAGE_BASE_URL"]+details?.backdrop_path : moviePoster}>
+        <Element name="movieJumbotron">
+            <Container bg={details ? url["IMAGE_BASE_URL"]+details?.backdrop_path : moviePoster}>
             <InfoDiv>
-                <Typography variant="h3" component="h2" color={colors.white} fontWeight="bold" marginBottom="1.5rem">
+                <Typography 
+                    variant="h3" 
+                    component="h2" 
+                    color={colors.white} 
+                    fontWeight="bold" 
+                    marginBottom="1.5rem"
+                    fontSize={isMobile && "1.8em"}
+                    style={{wordWrap:'break-word' }}
+                >
                     {details ? details?.title : title}
                 </Typography>
                 <Typography 
@@ -61,7 +76,7 @@ const MovieJumbotron = () => {
                             BtnBg={colors.primary} 
                             BtnColor={colors.white}
                             onClick={watchLater}
-                            startIcon={<FaClock />}>
+                            startIcon={!isMobile && <FaClock />}>
                                 Watch later
                         </Btn>
                         <Btn 
@@ -70,15 +85,15 @@ const MovieJumbotron = () => {
                             BtnColor={colors.white}
                             border={colors.white}
                             onClick={addToFavourite}
-                            startIcon={<MdOutlineAddCircle color={colors.white}/>}>
+                            startIcon={!isMobile && <MdOutlineAddCircle color={colors.white}/>}>
                                 Add to Favourites
                         </Btn>
                     </> : <Link
                             to="movieSelection"
                             spy={true}
-                            offset={{}}
+                            offset={50}
                             smooth={true}
-                            duration={500}
+                            duration={600}
                                 >
                                 <Btn 
                                     variant="contained" 
@@ -97,7 +112,8 @@ const MovieJumbotron = () => {
                 Movie added successfully!
             </Alert>
       </Snackbar>
-            </Container>
+    </Container>
+        </Element>
     )
 }
 
@@ -123,6 +139,13 @@ const Container = styled.div`
         position: absolute;
         z-index: 2;
     }
+    @media ${mobile}{
+        width: 20rem;
+        min-height: 10rem;
+        justify-content: center;
+        margin-bottom: 11rem;
+        padding-top: 4rem;
+    }
 `
 
 const InfoDiv = styled.div`
@@ -132,6 +155,11 @@ const InfoDiv = styled.div`
     padding: 2rem;
     position: relative;
     z-index: 5;
+    @media ${mobile}{
+        width: 98%;
+        padding: .7rem;
+        min-height: 60%;
+    }
 `;
 
 const BtnDiv = styled.div`
@@ -146,5 +174,10 @@ const Btn = styled(Button)`
     &:hover{
         background: none;
         border: 1px solid ${colors.white};
+    }
+    @media ${mobile}{
+        display: block;
+        width: 100%;
+        margin: 0 0 1rem 0;
     }
 `;

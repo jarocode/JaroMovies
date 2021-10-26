@@ -5,6 +5,10 @@ import {ImBin} from 'react-icons/im'
 
 import { colors } from '../../config.js/theme';
 import url from '../../config.js/url';
+import device from '../../config.js/mediaQueries';
+
+
+const {mobile} = device;
 
 
 const MovieListCard = ({movieData, deleteData}) => {
@@ -50,11 +54,17 @@ const Container = styled.div`
     display: flex;
     padding: 2rem;
     gap: 2rem;
+    /* @media ${mobile}{
+        flex-direction: column;
+    } */
 `;
 
 const ImgDiv = styled.div`
     width: 35%;
     background: url(${({bg}) => bg}) no-repeat center center/cover;
+    /* @media ${mobile}{
+        width: 100%;
+    } */
 `
 const Content = styled.div`
     width: 65%;

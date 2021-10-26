@@ -15,7 +15,13 @@ const AllMovies = ({value, setOpen}) => {
       return (
        <TabPanel value={value} index={0}>
            <Container>
-             {Array.isArray(movies) && movies.length !== 0 ?(<Carousel axis="horizontal" showArrows>
+             {Array.isArray(movies) && movies.length !== 0 ?
+                                (<Carousel 
+                                    axis="horizontal" 
+                                    showArrows 
+                                    showIndicators={false}
+                                    autoPlay
+                                >
                                     { movies.map(movie => <MovieCardRow movieData={movie} setOpen={setOpen}/>)}
                                     </Carousel>) :
                                     <NoMovieFound text="No results found"/>

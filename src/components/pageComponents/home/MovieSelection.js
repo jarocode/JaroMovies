@@ -8,6 +8,10 @@ import AllMovies from './AllMovies';
 import Favourites from './Favourites';
 import WatchLater from './WatchLater';
 import { colors } from '../../../config.js/theme';
+import device from '../../../config.js/mediaQueries';
+
+
+const {mobile} = device;
 
 
 function a11yProps(index) {
@@ -63,6 +67,7 @@ const Container = styled.div`
     /* background: purple; */
     min-height: 20rem;
     padding-bottom: 5rem;
+    
 `
 
 const MovieTabs = muiStyled((props) => (
