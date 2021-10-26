@@ -19,8 +19,7 @@ const AllMovies = ({value, setOpen}) => {
                                 (<Carousel 
                                     axis="horizontal" 
                                     showArrows 
-                                    showIndicators={true}
-                                    
+                                    autoPlay
                                 >
                                     { movies.map(movie => <MovieCardRow movieData={movie} setOpen={setOpen}/>)}
                                     </Carousel>) :
