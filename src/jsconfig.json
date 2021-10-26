@@ -1,9 +1,0 @@
-{
-    "compilerOptions": {
-      "resolveJsonModule": true,
-      "jsx": "preserve",
-      "baseUrl": "./src",
-    },
-    "include" : ["src"],
-    "exclude": ["node_modules", "**/node_modules/*"] 
-}
