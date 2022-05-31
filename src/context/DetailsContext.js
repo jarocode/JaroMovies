@@ -5,7 +5,7 @@ import URL from '../config.js/url';
 export const DetailsContext = createContext();
 
 export const DetailsProvider = ({children}) => {
-    const [details, setDetails] = useState();
+    const [details, setDetails] =  useState();
 
     
 
