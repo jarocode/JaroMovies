@@ -10,6 +10,7 @@ describe("AllMovies", () => {
         <AllMovies />
       </MovieProvider>
     );
+
     // screen.debug();
   });
 });

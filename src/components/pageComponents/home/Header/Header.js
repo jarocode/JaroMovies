@@ -33,59 +33,78 @@ const Header = () => {
   };
   return (
     <Container>
-      {!isMobile && (
-        <LogoDiv>
-          <P>
-            Jar
-            <BsPlayCircle />
-            <span style={{ color: "#f00" }}>Movies</span>
-          </P>
-        </LogoDiv>
-      )}
-      <SearchDiv>
-        <Input
-          placeholder="Search movies..."
-          onChange={handleChange}
-          // onKeyDown={e => e.keyCode === 13 && handleSearch()}
-          value={searchQuery}
-        />
-        <SearchBtn
-          variant="contained"
-          onClick={handleSearch}
-          startIcon={<MdSearch size="1.5rem" />}
-        ></SearchBtn>
-      </SearchDiv>
-
-      {!isMobile && (
-        <AuthDiv>
-          <AuthBtn variant="contained">Sign In</AuthBtn>
-        </AuthDiv>
-      )}
+      <Inner>
+        {/* {!isMobile && (
+          <LogoDiv>
+            <P>
+              Jar
+              <BsPlayCircle />
+              <span style={{ color: "#f00" }}>Movies</span>
+            </P>
+          </LogoDiv>
+        )} */}
+        <SearchDiv>
+          <Input
+            placeholder="Search movies..."
+            onChange={handleChange}
+            onKeyDown={(e) => e.keyCode === 13 && handleSearch()}
+            value={searchQuery}
+          />
+          <SearchBtn
+            variant="contained"
+            onClick={handleSearch}
+            startIcon={<MdSearch size="1.5rem" />}
+          ></SearchBtn>
+        </SearchDiv>
+        {/* 
+        {!isMobile && (
+          <AuthDiv>
+            <AuthBtn variant="contained">Sign In</AuthBtn>
+          </AuthDiv>
+        )} */}
+      </Inner>
     </Container>
   );
 };
 
 export default Header;
+const OuterDiv = styled.div`
+  width: 70rem;
+`;
+
 const Container = styled.div`
   display: flex;
+  position: fixed;
+  width: 100%;
   min-height: 3rem;
+  z-index: 1000 !important;
   padding: 1rem;
   gap: 3%;
   margin-bottom: 2rem;
+  background: #000;
   @media ${mobile} {
     justify-content: center;
   }
 `;
 
+const Inner = styled.div`
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70rem;
+  height: 5rem;
+`;
+
 const LogoDiv = styled.div`
-  width: 15%;
+  width: 20%;
   /* @media ${mobile}{
         width: 100%;
     } */
   /* background: red; */
 `;
 const SearchDiv = styled.div`
-  width: 65%;
+  width: 100%;
   display: flex;
   border-radius: 2px;
   @media ${mobile} {

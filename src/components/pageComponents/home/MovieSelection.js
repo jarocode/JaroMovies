@@ -63,7 +63,7 @@ export default MovieSelection;
 const Container = styled.div`
   margin: auto;
   margin-top: 3.5rem;
-  width: 85%;
+  width: 70rem;
   /* background: purple; */
   min-height: 20rem;
   padding-bottom: 5rem;

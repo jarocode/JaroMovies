@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import Header from "./Header";
 import { MovieProvider } from "../../../../context/MovieContext";
@@ -10,6 +11,14 @@ describe("Header", () => {
         <Header />
       </MovieProvider>
     );
-    // screen.debug();
+    screen.debug();
+    // fireEvent.change(screen.getByPlaceholderText("Search movies..."), {
+    //   target: { value: "javascript" },
+    // });
+    userEvent.type(
+      screen.getByPlaceholderText("Search movies..."),
+      "javascript"
+    );
+    screen.debug();
   });
 });
